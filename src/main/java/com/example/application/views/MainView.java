@@ -11,6 +11,6 @@ public class MainView extends VerticalLayout {
         Button button = new Button("Cliquez ici", e -> {
             // Action à effectuer lors du clic sur le bouton
         });
-        add(button); // Ajoutez le bouton à la vue
+        add(button); 
     }
 }
