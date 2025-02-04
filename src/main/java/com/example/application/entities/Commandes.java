@@ -1,6 +1,7 @@
 package com.example.application.entities;
 
 import jakarta.persistence.*;
+import com.fasterxml.jackson.annotation.JsonFormat; // Assurez-vous que cet import est correct
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
@@ -27,6 +28,7 @@ public class Commandes {
     private String statut; // Statut de la commande
 
     @Column(nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss") 
     private LocalDateTime dateCommande = LocalDateTime.now();
 
     // Getters et Setters

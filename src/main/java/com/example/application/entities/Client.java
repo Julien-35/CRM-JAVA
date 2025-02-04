@@ -10,6 +10,10 @@ public class Client {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @OneToMany(mappedBy = "client", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Commandes> commandes; // Liste des commandes associées
+
+
     @Column(nullable = false, unique = true, length = 50)
     private String numeroClient;
 
