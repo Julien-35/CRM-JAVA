@@ -1,24 +1,41 @@
-package com.example.application.entities; 
+package com.example.application.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Column;
+import jakarta.persistence.*;
+import java.time.LocalDate;
+import java.util.List;
 
-@Entity  // Indique que c'est une entité JPA
+@Entity
 public class Client {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)  // Génère un identifiant unique
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String numeroClient; 
+
+    @Column(nullable = false, unique = true, length = 50)
+    private String numeroClient;
+
+    @Column(nullable = false, length = 255)
     private String denomination;
+
+    @Column(length = 255)
     private String adresse;
+
+    @Column(length = 10)
     private String codePostal;
+
+    @Column(length = 100)
     private String ville;
+
+    @Column(length = 100)
     private String secteurActivite;
+
+    @Column(nullable = false, unique = true, length = 14)
     private String siret;
-    private String dateCreation;
+
+    @Column(nullable = false)
+    private LocalDate dateCreation = LocalDate.now();
+
+    @OneToMany(mappedBy = "client", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Document> documents;
 
     // Getters et Setters
     public Long getId() {
@@ -73,8 +90,8 @@ public class Client {
         return secteurActivite;
     }
 
-    public void setSecteurActivite(String secteurActivite) { 
-        this.secteurActivite = secteurActivite; 
+    public void setSecteurActivite(String secteurActivite) {
+        this.secteurActivite = secteurActivite;
     }
 
     public String getSiret() {
@@ -85,11 +102,19 @@ public class Client {
         this.siret = siret;
     }
 
-    public String getDateCreation() {
+    public LocalDate getDateCreation() {
         return dateCreation;
     }
 
-    public void setDateCreation(String dateCreation) {
+    public void setDateCreation(LocalDate dateCreation) {
         this.dateCreation = dateCreation;
+    }
+
+    public List<Document> getDocuments() {
+        return documents;
+    }
+
+    public void setDocuments(List<Document> documents) {
+        this.documents = documents;
     }
 }
